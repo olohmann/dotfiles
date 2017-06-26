@@ -3,9 +3,6 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-# EDITOR
-export EDITOR="vim"
-
 # BASH OPTIONS
 shopt -s checkwinsize            # Update windows size on command
 shopt -s histappend              # Append History instead of overwriting file
@@ -18,18 +15,6 @@ complete -cf sudo
 if [[ -f /etc/bash_completion ]]; then
     . /etc/bash_completion
 fi
-
-# PATH
-export PATH=/usr/local/bin:$PATH
-if [[ -d "$HOME/bin" ]] ; then
-    PATH="$HOME/bin:$PATH"
-fi
-
-# HISTORY 
-export HISTSIZE=1000            # bash history will save N commands
-export HISTFILESIZE=${HISTSIZE} # bash will remember N commands
-export HISTCONTROL=ignoreboth   # ingore duplicates and spaces
-export HISTIGNORE='&:ls:ll:la:cd:exit:clear:history'
 
 # ALIAS
 alias ls='ls --color=auto'
