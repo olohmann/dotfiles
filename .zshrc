@@ -7,10 +7,13 @@ export EDITOR=vim
 export GOPATH="${HOME}/dev/go"
 export GOROOT=/usr/local/opt/go/libexec
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
-
+#
 # Krew
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export PATH="/usr/local/opt/node@10/bin:$PATH"
+
+# If you come from bash you might have to change your $PATH.
+# export PATH=/usr/local/bin:$HOME/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/oliverlo/.oh-my-zsh"
@@ -136,7 +139,6 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 
 eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 
 # ranger setup
 function ranger-cd {
@@ -163,3 +165,4 @@ function ranger-cd {
 
 alias nav=ranger-cd
 bindkey -s "^o" "ranger-cd\n"
+
