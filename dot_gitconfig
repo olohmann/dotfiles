@@ -1,0 +1,27 @@
+[user]
+	name = Oliver Lohmann
+	email = oliver@lohmann.io
+
+[init]
+	defaultBranch = main
+
+[diff]
+	tool = vimdiff
+
+[difftool]
+	prompt = false
+
+[merge]
+	tool = vimdiff
+	conflictStyle = zdiff3
+
+[mergetool]
+	prompt = false
+
+[credential "https://github.com"]
+	helper = 
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
