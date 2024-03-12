@@ -6,22 +6,32 @@
 	defaultBranch = main
 
 [diff]
-	tool = vimdiff
+	tool = nvimdiff
 
 [difftool]
 	prompt = false
 
 [merge]
-	tool = vimdiff
-	conflictStyle = zdiff3
+	tool = nvimdiff
 
 [mergetool]
 	prompt = false
 
 [credential "https://github.com"]
 	helper = 
+  {{ if eq .chezmoi.os "linux" -}}
 	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+  {{ end -}}
+  {{ if eq .chezmoi.os "darwin" -}}
+	helper = !/opt/homebrew/bin/gh auth git-credential
+  {{ end -}}
 
 [credential "https://gist.github.com"]
 	helper = 
+  {{ if eq .chezmoi.os "linux" -}}
 	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+  {{ end -}}
+  {{ if eq .chezmoi.os "darwin" -}}
+	helper = !/opt/homebrew/bin/gh auth git-credential
+  {{ end -}}
+
