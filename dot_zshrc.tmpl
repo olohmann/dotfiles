@@ -33,6 +33,7 @@ export NVM_DIR="$HOME/.nvm"
 {{ end -}}
 
 {{ if eq .chezmoi.os "darwin" -}}
+source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 source /opt/homebrew/opt/spaceship/spaceship.zsh
 {{ end -}}
 
