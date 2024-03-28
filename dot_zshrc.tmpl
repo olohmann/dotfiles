@@ -13,11 +13,21 @@ alias l='ls -lah --color'
 alias ll='ls -lah --color'
 
 export EDITOR='nvim'
+alias v='nvim'
+alias vi='nvim'
+alias vim='nvim'
 
 # Python
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+{{ if eq .chezmoi.os "darwin" -}}
+# ZPlugs
+export ZPLUG_HOME=/opt/homebrew/opt/zplug
+source $ZPLUG_HOME/init.zsh
+{{ end -}}
+
 
 # NVM
 {{ if eq .chezmoi.os "darwin" -}}
@@ -38,5 +48,6 @@ source /opt/homebrew/opt/spaceship/spaceship.zsh
 {{ end -}}
 
 {{ if eq .chezmoi.os "linux" -}}
+source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 source "/home/linuxbrew/.linuxbrew/opt/spaceship/spaceship.zsh"
 {{ end -}}
