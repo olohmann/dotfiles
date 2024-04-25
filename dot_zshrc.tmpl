@@ -4,7 +4,12 @@ export XDG_CONFIG_HOME="$HOME/.config"
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/.tmux/plugins/tmuxifier/bin:$HOME/.local/bin:$HOME/bin:/usr/local/bin:$PATH
 
-eval "$($(brew --prefix)/bin/brew shellenv)"
+{{ if ne .chezmoi.os "darwin" }}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+{{ end }}
+{{ if ne .chezmoi.os "linux" }}
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{ end }}
 
 alias l='ls -lah --color'
 alias ll='ls -lah --color'
