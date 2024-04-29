@@ -1,57 +1,73 @@
 [user]
-	name = Oliver Lohmann
-	email = oliver@lohmann.io
+  name = Oliver Lohmann
+  email = oliver@lohmann.io
+  signingkey = ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDBoVLub9Dohq/cc8Ujwk1zFeIPvQMao7vGOAH67oVlnftoD8IcTA5MMEc76EK0Q40smlKzO9jxvnnfkaV6aMFPLTB3AWn+3dY5AcXR+Vi8FFH9CW4qx0URYL4/yCTRLGmid2uaNFO+npAsXYJqetYSU4z+1FLde0A5OApAjuEEoLeo4jT2eR5zf2naWMmE/11D4yjfNHvABZEY0yFXqaBDwnvMvI1ayA+11cDVdh/4RwyJXaZhOPMrgiuOjLX4JmsaiAVklL+HcZoYQXFt4IYc2Pi885YwsJWrxL8XY2ND5KDPAo8octuALRS94UJyYJ8MqQcG3gn0IquWyC0+jN/hl1n2X8fptt8x/TtSHyrV3BSN/2ei3KOPHTWRIO4e3q7HKSfdn6k5V9RrT1ahRByLLEC8/6+6ynKOwXlZ+rtKLzLaCguSltZ0z6T9d41cXQD9Jp6UNeLnIGvx3ti/jeAik4fLMaZ+AMvCnt+npviPneiAeweBqIubZiyS3JL4h8eTA8eTEG07gmdmlNrN9CdBs3yhz9SL2SE3EB3Jxqmxq5I+Lmr/bAE+BcRDy2w3cCDHl4pEX48lCNrjOuVdILtLVPi9j/mFYRxm2E/E81g7mPh+WaiYKRrd47v4bZd1+JD1nAAv+NHRpEmAegcwUi3r7g3xN2QlWFsF8BVUJRasrw==
 
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+
+[commit]
+  gpgsign = true
 [init]
-	defaultBranch = main
+  defaultBranch = main
 
 [diff]
-	tool = nvimdiff
+  tool = nvimdiff
 
 [difftool]
-	prompt = false
+  prompt = false
 
 [merge]
-	tool = nvimdiff
+  tool = nvimdiff
 
 [mergetool]
-	prompt = false
+  prompt = false
+
 
 [credential "https://github.com"]
-	helper = 
-  {{ if eq .chezmoi.os "linux" -}}
-	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
-  {{ end -}}
-  {{ if eq .chezmoi.os "darwin" -}}
-	helper = !/opt/homebrew/bin/gh auth git-credential
-  {{ end -}}
+  {{- if eq .chezmoi.os "linux"  }}{{"\n"}}  helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential {{"\n"}} {{ end -}}
+  {{- if eq .chezmoi.os "darwin" }}{{"\n"}}  helper = !/opt/homebrew/bin/gh auth git-credential {{ end }}
 
 [credential "https://gist.github.com"]
-	helper = 
-  {{ if eq .chezmoi.os "linux" -}}
-	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
-  {{ end -}}
-  {{ if eq .chezmoi.os "darwin" -}}
-	helper = !/opt/homebrew/bin/gh auth git-credential
-  {{ end -}}
+  {{- if eq .chezmoi.os "linux"  }}{{"\n"}}  helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential {{"\n"}} {{ end -}}
+  {{- if eq .chezmoi.os "darwin" }}{{"\n"}}  helper = !/opt/homebrew/bin/gh auth git-credential {{ end }}
+
+[credential "https://dev.azure.com"]
+  useHttpPath = true
+
+[credential]
+  helper = /usr/local/share/gcm-core/git-credential-manager
 
 [core]
-    pager = delta
+  pager = delta
 
 [interactive]
-    diffFilter = delta --color-only
+  diffFilter = delta --color-only
 
 [delta]
-    navigate = true    # use n and N to move between diff sections
-    side-by-side = true
-
-
-    # delta detects terminal colors automatically; set one of these to disable auto-detection
-    # dark = true
-    # light = true
+  navigate = true    # use n and N to move between diff sections
+  side-by-side = true
 
 [merge]
-    conflictstyle = diff3
+  conflictstyle = diff3
 
 [diff]
-    colorMoved = default
+  colorMoved = default
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+
+[commit]
+  gpgsign = true
