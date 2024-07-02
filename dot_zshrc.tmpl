@@ -94,3 +94,6 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory
 
+{{ if eq .chezmoi.os "darwin" }}# GCC Config MacOS (solves nasty treesitter issues when compiling plugins){{ end }}
+{{ if eq .chezmoi.os "darwin" }}export CC=/opt/homebrew/bin/gcc-14{{ end }}
+{{ if eq .chezmoi.os "darwin" }}export CXX=/opt/homebrew/bin/g++-14{{ end }}
