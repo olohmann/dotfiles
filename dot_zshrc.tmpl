@@ -1,6 +1,18 @@
 # Ensure MacOS treats config in a sane way (and consistent with Linux)
 export XDG_CONFIG_HOME="$HOME/.config"
 
+{{ if eq .chezmoi.os "darwin" }}
+# GoCC Config MacOS (solves nasty treesitter issues when compiling plugins)
+export CC=/opt/homebrew/bin/gcc-14
+export CXX=/opt/homebrew/bin/g++-14
+
+# Golang Config 
+export PATH="/opt/homebrew/bin:$PATH"
+export GOROOT="/opt/homebrew/opt/go/libexec"
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+{{ end }}
+
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/.tmux/plugins/tmuxifier/bin:$HOME/.local/bin:$HOME/bin:/usr/local/bin:$PATH
 
@@ -10,6 +22,7 @@ export PATH=$HOME/.tmux/plugins/tmuxifier/bin:$HOME/.local/bin:$HOME/bin:/usr/lo
 
 alias l='ls -lah --color'
 alias ll='ls -lah --color'
+alias k='kubectl'
 
 export EDITOR='nvim'
 alias v='nvim'
@@ -94,6 +107,3 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory
 
-{{ if eq .chezmoi.os "darwin" }}# GCC Config MacOS (solves nasty treesitter issues when compiling plugins){{ end }}
-{{ if eq .chezmoi.os "darwin" }}export CC=/opt/homebrew/bin/gcc-14{{ end }}
-{{ if eq .chezmoi.os "darwin" }}export CXX=/opt/homebrew/bin/g++-14{{ end }}

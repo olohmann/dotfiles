@@ -11,6 +11,7 @@
 
 [commit]
   gpgsign = true
+
 [init]
   defaultBranch = main
 
@@ -26,20 +27,18 @@
 [mergetool]
   prompt = false
 
+[credential]
+	helper = 
 
 [credential "https://github.com"]
-  {{- if eq .chezmoi.os "linux"  }}{{"\n"}}  helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential {{"\n"}} {{ end -}}
-  {{- if eq .chezmoi.os "darwin" }}{{"\n"}}  helper = !/opt/homebrew/bin/gh auth git-credential {{ end }}
+{{- if eq .chezmoi.os "linux"  }}{{"\n"}}  helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential {{"\n"}} {{ end -}}
+{{- if eq .chezmoi.os "darwin" }}{{"\n"}}  helper = !/opt/homebrew/bin/gh auth git-credential {{ end }}
+	username = olohmann
 
 [credential "https://gist.github.com"]
-  {{- if eq .chezmoi.os "linux"  }}{{"\n"}}  helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential {{"\n"}} {{ end -}}
-  {{- if eq .chezmoi.os "darwin" }}{{"\n"}}  helper = !/opt/homebrew/bin/gh auth git-credential {{ end }}
-
-[credential "https://dev.azure.com"]
-  useHttpPath = true
-
-[credential]
-  helper = /usr/local/share/gcm-core/git-credential-manager
+{{- if eq .chezmoi.os "linux"  }}{{"\n"}}  helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential {{"\n"}} {{ end -}}
+{{- if eq .chezmoi.os "darwin" }}{{"\n"}}  helper = !/opt/homebrew/bin/gh auth git-credential {{ end }}
+	useHttpPath = true
 
 [core]
   pager = delta
@@ -63,11 +62,3 @@
   process = git-lfs filter-process
   required = true
 
-[gpg]
-  format = ssh
-
-[gpg "ssh"]
-  program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
-
-[commit]
-  gpgsign = true
