@@ -48,6 +48,11 @@ export NVM_DIR="$HOME/.nvm"
 # Hombrew Java
 export PATH="$(brew --prefix)/opt/homebrew/opt/openjdk/bin:$PATH"
 
+# Configure zsh-vi-mode to properly initialize fzf after loading
+function zvm_after_init() {
+  source <(fzf --zsh)
+}
+
 source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 source $(brew --prefix)/opt/spaceship/spaceship.zsh
 
@@ -100,10 +105,10 @@ function yy() {
 	rm -f -- "$tmp"
 }
 
-# fzf history
-source <(fzf --zsh)
+# History configuration
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
-setopt appendhistory
 
+setopt appendhistory
+setopt interactivecomments
