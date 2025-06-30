@@ -1,5 +1,0 @@
-return {
-  {
-    "carlsmedstad/vim-bicep",
-  },
-}
