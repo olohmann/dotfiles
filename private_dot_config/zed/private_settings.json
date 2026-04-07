@@ -7,11 +7,72 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "autosave": {
+    "after_delay": {
+      "milliseconds": 1000
+    }
+  },
+  "show_edit_predictions": false,
   "features": {
-    "edit_prediction_provider": "zed"
+    "edit_prediction_provider": "copilot"
+  },
+  "languages": {
+    "Python": {
+      "language_servers": ["pyright", "ruff"],
+      "format_on_save": "on",
+      "formatter": [
+        {
+          "code_action": "source.organizeImports.ruff"
+        },
+        {
+          "code_action": "source.fixAll.ruff"
+        },
+        {
+          "language_server": {
+            "name": "ruff"
+          }
+        }
+      ]
+    }
+  },
+  "lsp": {
+    "ruff": {
+      "initialization_options": {
+        "settings": {
+          "configurationPreference": "filesystemFirst",
+          "configuration": {
+            "format": {
+              "quote-style": "double",
+              "skip-magic-trailing-comma": false,
+              "indent-style": "space"
+            }
+          },
+          "codeAction": {
+            "disableRuleComment": { "enable": false },
+            "fixViolation": { "enable": true }
+          },
+          "lint": {
+            "select": ["E4", "E7", "E9", "F"],
+            "extendSelect": ["I"],
+            "enable": true
+          },
+          "format": {
+            "preview": true
+          },
+          "fixAll": true,
+          "organizeImports": true,
+          "showSyntaxErrors": true,
+          "lineLength": 100
+        }
+      }
+    }
   },
   "icon_theme": "Catppuccin Mocha",
   "agent": {
+    "inline_assistant_model": {
+      "provider": "copilot_chat",
+      "model": "claude-sonnet-4.5"
+    },
     "profiles": {
       "ask": {
         "name": "Ask",
@@ -31,7 +92,6 @@
       "provider": "copilot_chat",
       "model": "gpt-4.1"
     },
-    "version": "2"
   },
   "theme": "Catppuccin Mocha",
   "vim_mode": true,

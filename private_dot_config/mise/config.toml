@@ -1,0 +1,9 @@
+[tools]
+go = "1.26"
+node = "25"
+python = "3.13"
+
+[settings]
+# Auto-create/activate venvs when uv is available
+[settings.python]
+uv_venv_auto = true

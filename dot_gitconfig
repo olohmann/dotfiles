@@ -17,31 +17,28 @@
 
 [diff]
   tool = nvimdiff
+  colorMoved = default
 
 [difftool]
   prompt = false
 
 [merge]
   tool = nvimdiff
+  conflictstyle = diff3
 
 [mergetool]
   prompt = false
-
-[credential]
-	helper = 
-
 [credential "https://github.com"]
-{{- if eq .chezmoi.os "linux"  }}{{"\n"}}  helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential {{"\n"}} {{ end -}}
-{{- if eq .chezmoi.os "darwin" }}{{"\n"}}  helper = !/opt/homebrew/bin/gh auth git-credential {{ end }}
+  helper = !/opt/homebrew/bin/gh auth git-credential 
 	username = olohmann
 
 [credential "https://gist.github.com"]
-{{- if eq .chezmoi.os "linux"  }}{{"\n"}}  helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential {{"\n"}} {{ end -}}
-{{- if eq .chezmoi.os "darwin" }}{{"\n"}}  helper = !/opt/homebrew/bin/gh auth git-credential {{ end }}
+  helper = !/opt/homebrew/bin/gh auth git-credential 
 	useHttpPath = true
 
 [core]
   pager = delta
+  excludesFile = ~/.gitignore_global
 
 [interactive]
   diffFilter = delta --color-only
@@ -50,15 +47,15 @@
   navigate = true    # use n and N to move between diff sections
   side-by-side = true
 
-[merge]
-  conflictstyle = diff3
-
-[diff]
-  colorMoved = default
-
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
   required = true
-
+[alias]
+	ac = !git add -A && git commit -m
+[credential]
+	helper = 
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true

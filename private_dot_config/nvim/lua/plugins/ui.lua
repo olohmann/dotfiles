@@ -1,14 +1,4 @@
 return {
-  -- Theme
-  {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme("tokyonight-night")
-    end,
-  },
-
   -- Dashboard
   {
     "goolord/alpha-nvim",
@@ -22,10 +12,11 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    event = "VeryLazy",
     config = function()
       require("lualine").setup {
         options = {
-          theme = "tokyonight",
+          theme = "auto",
           section_separators = "",
           component_separators = "",
         },
@@ -43,7 +34,7 @@ return {
       "MunifTanjim/nui.nvim",
     },
     config = function()
-      require("neo-tree").setup()
+      require("neo-tree").setup({})
     end,
   },
 
@@ -61,6 +52,15 @@ return {
     "lewis6991/gitsigns.nvim",
     config = function()
       require("gitsigns").setup()
+    end,
+  },
+
+  -- Keymap hints
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("which-key").setup()
     end,
   },
 }

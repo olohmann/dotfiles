@@ -1,28 +1,27 @@
 # Ensure MacOS treats config in a sane way (and consistent with Linux)
 export XDG_CONFIG_HOME="$HOME/.config"
 
-{{ if eq .chezmoi.os "darwin" }}
+
 # GoCC Config MacOS (solves nasty treesitter issues when compiling plugins)
 export CC=/opt/homebrew/bin/gcc-14
 export CXX=/opt/homebrew/bin/g++-14
 
-# Golang Config 
 export PATH="/opt/homebrew/bin:$PATH"
-export GOROOT="/opt/homebrew/opt/go/libexec"
 export GOPATH=$HOME/go
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-{{ end }}
+export PATH=$PATH:$GOPATH/bin
+
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/.tmux/plugins/tmuxifier/bin:$HOME/.local/bin:$HOME/bin:/usr/local/bin:$PATH
 
 # Init brew
-{{ if eq .chezmoi.os "darwin" }}eval "$(/opt/homebrew/bin/brew shellenv)"{{ end }}
-{{ if eq .chezmoi.os "linux" }}eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"{{ end }}
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
-alias l='ls -lah --color'
-alias ll='ls -lah --color'
+
+alias l='eza --color=always --long --git --icons=always'
+alias ll='eza --color=always --long --all --git --icons=always'
 alias k='kubectl'
+alias top='btop'
 
 export EDITOR='nvim'
 alias v='nvim'
@@ -30,23 +29,25 @@ alias vi='nvim'
 alias vim='nvim'
 alias lg='lazygit'
 
-# Python
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+# Version manager (Python, Node, Go)
+eval "$(mise activate zsh)"
 
 # ZPlugs
 export ZPLUG_HOME=$(brew --prefix)/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
-
-# NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+# fix uv autocompletion issue, see https://github.com/astral-sh/uv/issues/8432
+_uv_run_mod() {
+    if [[ "$words[2]" == "run" && "$words[CURRENT]" != -* ]]; then
+        _arguments '*:filename:_files -g "*.py"'
+    else
+        _uv "$@"
+    fi
+}
+compdef _uv_run_mod uv
 
 # Hombrew Java
-export PATH="$(brew --prefix)/opt/homebrew/opt/openjdk/bin:$PATH"
+export PATH="$(brew --prefix)/opt/openjdk/bin:$PATH"
 
 # Configure zsh-vi-mode to properly initialize fzf after loading
 function zvm_after_init() {
@@ -82,14 +83,14 @@ _fzf_compgen_dir() {
 # -- Use fzf.git in fzf --
 source ~/fzf-git.sh/fzf-git.sh
 
-# -- fzf Catpucchin Mocha --
+# -- fzf Catppuccin Mocha --
 export FZF_DEFAULT_OPTS=" \
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
 # ---- Eza (better ls) -----
-alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
+alias ls="eza --color=always --long --git --icons=always --no-time --no-user --no-permissions"
 
 # ---- Zoxide (better cd) ----
 eval "$(zoxide init zsh)"
@@ -107,8 +108,11 @@ function yy() {
 
 # History configuration
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=50000
+SAVEHIST=50000
 
 setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_all_dups
+setopt hist_reduce_blanks
 setopt interactivecomments

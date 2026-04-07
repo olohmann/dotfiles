@@ -1,0 +1,27 @@
+# Theme
+theme = Catppuccin Mocha
+
+# Font
+font-family = CaskaydiaCove Nerd Font
+font-size = 14
+
+# Window
+window-decoration = true
+window-title-font-family = CaskaydiaCove Nerd Font
+
+# Padding (workaround for corner rendering issues)
+window-padding-x = 16
+window-padding-y = 12
+window-padding-balance = true
+window-padding-color = background
+
+# Cursor
+cursor-style = block
+cursor-style-blink = false
+
+# Shell integration
+shell-integration = zsh
+
+# macOS specific
+macos-titlebar-style = tabs
+macos-option-as-alt = true

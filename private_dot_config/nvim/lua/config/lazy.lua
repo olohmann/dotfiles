@@ -19,7 +19,32 @@ vim.opt.rtp:prepend(lazypath)
 -- loading lazy.nvim so that mappings are correct.
 -- This is also a good place to setup other settings (vim.opt)
 vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+vim.g.maplocalleader = " "
+
+-- Neovim 0.12 options
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+
+vim.opt.pumborder = "single"
+vim.opt.pumblend = 10
+vim.opt.clipboard = "unnamedplus"
+
+vim.keymap.set("n", "<leader>qq", function()
+  local modified = vim.tbl_filter(function(buf)
+    return vim.bo[buf].modified
+  end, vim.api.nvim_list_bufs())
+  if #modified > 0 then
+    local choice = vim.fn.confirm(
+      "Unsaved changes in " .. #modified .. " buffer(s). Discard and quit? (y/Y = quit, any other = stay)",
+      "&Stay\n&Yes, discard and quit", 1, "Question"
+    )
+    if choice == 2 then
+      vim.cmd("qa!")
+    end
+  else
+    vim.cmd("qa")
+  end
+end, { desc = "Quit all" })
 
 -- Setup lazy.nvim
 require("lazy").setup({
@@ -29,7 +54,8 @@ require("lazy").setup({
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
-  install = { colorscheme = { "habamax" } },
+  install = { colorscheme = { "catppuccin-mocha", "habamax" } },
   -- automatically check for plugin updates
+  rocks = { enabled = false },
   checker = { enabled = true },
 })
